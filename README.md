@@ -2,6 +2,6 @@
 
 Running instructions:
 
-npm install
+> npm install
   
-node index.js
+> node index.js

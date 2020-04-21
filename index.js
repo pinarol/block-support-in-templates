@@ -8,25 +8,6 @@ const getTemplates = async () => {
     return data.json();
 };
 
-const countBlockStats = ( results, template, block ) => {
-    const { blockName, innerBlocks } = block;
-    let { templatesCount, totalCount } = results;
-    if ( blockName == null ) {
-        return results;
-    }
-    templatesCount[blockName] = templatesCount[blockName] ? templatesCount[blockName].add(template) : new Set([template]);
-    totalCount[blockName] = totalCount[blockName] ? totalCount[blockName] + 1 : 1;
-    if ( ! innerBlocks ) {
-        console.log(block);
-    }
-    return innerBlocks.reduce( (result, innerBlock) => {
-        return countBlockStats( result, template, innerBlock );
-    }, {
-        templatesCount,
-        totalCount,
-    });
-}
-
 function traverse( block, actionToPerform ) {
     actionToPerform( block );
     block.innerBlocks.forEach( (blockIter) => {
@@ -90,33 +71,6 @@ const run = async () => {
       const cleanList = unsupportedBlocks.filter(String).filter( (e) =>{ return e != null } ).filter( onlyUnique );
       console.log(`${ template.slug }, ${ cleanList.join( ' | ' ) }, ${ cleanList.length }`);
     });
-
- /*   const stats = filteredTemplates.reduce( (result, template) => {
-
-        const blocks = parse( template.content );
-        return blocks.reduce(
-            ( result, block ) => countBlockStats( result, template.slug, block ),
-            result
-        );
-    }, {
-        templatesCount: {},
-        totalCount: {},
-    })
-
-    const allBlocks = Object.keys(stats.totalCount);
-    const summary = allBlocks.reduce( ( result, block ) => {
-        result[block] = {
-            filteredTemplates: stats.templatesCount[block].size / filteredTemplates.length,
-            total: stats.totalCount[block],
-        };
-        return result;
-    }, {})
-    console.log('block,templates,totalCount')
-    allBlocks.forEach( (block) => {
-        const templateCount = stats.templatesCount[block].size / filteredTemplates.length;
-        const total = stats.totalCount[block];
-        console.log(`${block},${templateCount},${total}`);
-    });*/
 }
 
 run();

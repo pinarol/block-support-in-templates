@@ -48,7 +48,10 @@ const run = async () => {
         'core/shortcode',
         'core/latest-posts',
         'core/cover',
-        'core/buttons'
+        'core/buttons',
+        'core/social-link',
+        'core/social-links',
+        'core/pullquote'
     ]
 
     function onlyUnique(value, index, self) { 

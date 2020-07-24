@@ -1,4 +1,4 @@
-# bloock-support-in-templates
+# block-support-in-templates
 
 Running instructions:
 
